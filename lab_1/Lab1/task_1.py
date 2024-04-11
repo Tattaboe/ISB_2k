@@ -1,19 +1,17 @@
-def find_max_number_in_key(key):
+
+from work_file import read_json, write_text, read_columns_order_from_json, read_text
+
+
+def vertical_rearrangement(path_key: str, text_to_encrypt: str) -> str:
+    key = read_columns_order_from_json(path_key)
     max_number = max(key)
-    return max_number
+    table = ['' for _ in range(max_number)]
+    text_to_encrypt = text_to_encrypt.replace(" ", "")
 
-
-def distribute_text_in_table(text, key):
-    table = ['' for _ in range(find_max_number_in_key(key))]
-    text = text.replace(" ", "")
-    for i, char in enumerate(text):
+    for i, char in enumerate(text_to_encrypt):
         column = i % len(table)
         table[column] += char
 
-    return table
-
-
-def swap_columns(table, key):
     swapped_table = ['' for _ in range(len(table))]
     temp_table = table.copy()
 
@@ -25,20 +23,24 @@ def swap_columns(table, key):
         else:
             swapped_table[i] = temp_table[column_index - 1]
 
-    return swapped_table
+    output_text = ' '.join([' '.join(column.split()) for column in swapped_table])
+    return output_text
 
 
+def main() -> None:
+    paths = read_json("paths.json")
+    if not paths:
+        return
+
+    path_t = paths.get("path_text_1")
+    path_k = paths.get("path_key_1")
+    path_e = paths.get("path_encryption_1")
+
+    if path_t and path_k and path_e:
+        text_to_encrypt = read_text(path_t)
+        encrypted_text = vertical_rearrangement(path_k, text_to_encrypt)
+        write_text(path_e, encrypted_text)
 
 
-key = [5, 3, 8, 4, 6, 1, 9, 7, 2]  #Петербург
-text = "Family is best friend for you"
-
-table = distribute_text_in_table(text, key)
-print("Source table:")
-for i, column in enumerate(table):
-    print(f"Column {i + 1}: {column}")
-
-swapped_table = swap_columns(table, key)
-print("\nTable after replacing columns by key:")
-for i, column in enumerate(swapped_table):
-    print(f"Column {key[i]}: {column}")
+if __name__ == "__main__":
+    main()

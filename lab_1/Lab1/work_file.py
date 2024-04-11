@@ -34,4 +34,11 @@ def read_json(name: str) -> dict:
         print(f"Error reading file {str(e)}")
 
 
+def read_columns_order_from_json(file_path: str) -> list:
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+        columns_order = data.get("columns_order", [])
+    return columns_order
+
+
 
