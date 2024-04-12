@@ -6,5 +6,7 @@
 
     "path_text_2": "code8.txt",
     "path_index_1": "freq_index.json",
-    "path_index_2": "freq_index_2.json"
+    "path_index_2": "freq_index_2.json",
+    "dec_text": "decrypted_text.txt",
+    "path_index_3": "index3.json"
   }
