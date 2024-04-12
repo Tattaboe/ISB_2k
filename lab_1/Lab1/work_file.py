@@ -41,4 +41,12 @@ def read_columns_order_from_json(file_path: str) -> list:
     return columns_order
 
 
+def write_json(data: dict, path: str) -> None:
+    try:
+        with open(path, "w", encoding="utf-8") as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=1)
+            print(f"The data has been successfully written to the file '{path}'.")
+    except Exception as e:
+        print(f"Error writing to the file: '{e}'.")
+
 

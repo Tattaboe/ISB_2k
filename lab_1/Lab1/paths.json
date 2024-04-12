@@ -2,5 +2,9 @@
   {
     "path_text_1": "text_1.txt",
     "path_key_1": "key.json",
-    "path_encryption_1": "encryption_text_1.txt"
+    "path_encryption_1": "encryption_text_1.txt",
+
+    "path_text_2": "code8.txt",
+    "path_index_1": "freq_index.json",
+    "path_index_2": "freq_index_2.json"
   }
