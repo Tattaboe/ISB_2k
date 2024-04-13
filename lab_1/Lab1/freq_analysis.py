@@ -41,11 +41,26 @@ def decrypt_text(path_text: str, path_freq: str, path_original_freq: str) -> str
             decrypted_text += char  # сохраняем символ, если нет соответствия
 
     combined_map = {enc_char: decryption_map.get(enc_char, '?') for enc_char in enc_frequencies}
+    paths = read_json("paths.json")
+    output_path = paths.get("path_index_3")
+    write_json(combined_map, output_path)
 
-    print("Общий словарь:", combined_map)
 
     return decrypted_text
 
+
+def decrypt_text_2(path_key: str, input_path: str, output_path: str) -> str:
+
+    key = read_json(path_key)
+    result = ''
+    text = read_text(input_path)
+
+    for char in text:
+         if char in key:
+            result += key[char]
+         else:
+                    result += char
+    write_text(output_path, result)
 
 
 
@@ -70,9 +85,7 @@ def main() -> None:
     decrypted_text = decrypt_text(path_t, path_e, path_o)
     output_path = paths.get("dec_text")
     write_text(output_path, decrypted_text)
-    freq_analysis(output_path, path_l)
-    decrypted_text_2 = decrypt_text(output_path, path_l, path_o)
-    print(decrypted_text)
+    decrypt_text_2(path_l,output_path,path_text)
 
 
 main()
