@@ -3,6 +3,16 @@ from work_file import read_json, write_text, read_columns_order_from_json, read_
 
 
 def vertical_rearrangement(path_key: str, text_to_encrypt: str) -> str:
+    """
+       Perform vertical rearrangement of characters in the text based on the column order from a JSON file.
+
+       Args:
+           path_key (str): Path to the JSON file containing the column order.
+           text_to_encrypt (str): Text to be encrypted.
+
+       Returns:
+           str: Encrypted text after vertical rearrangement.
+       """
     key = read_columns_order_from_json(path_key)
     max_number = max(key)
     table = ['' for _ in range(max_number)]
