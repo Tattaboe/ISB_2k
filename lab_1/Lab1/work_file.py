@@ -1,4 +1,3 @@
-
 import json
 
 
@@ -70,10 +69,15 @@ def read_columns_order_from_json(file_path: str) -> list:
     Returns:
         list: The list of column orders.
     """
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-        columns_order = data.get("columns_order", [])
-    return columns_order
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            columns_order = data.get("columns_order", [])
+        return columns_order
+    except FileNotFoundError:
+        print("File not found")
+    except Exception as e:
+        print(f"Error reading file {str(e)}")
 
 
 def write_json(data: dict, path: str) -> None:

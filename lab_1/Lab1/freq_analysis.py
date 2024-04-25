@@ -1,5 +1,6 @@
-from work_file import read_json, write_text, read_text, write_json
 import os
+
+from work_file import read_json, write_text, read_text, write_json
 
 
 def freq_analysis(path_text: str, path_freq_index: str) -> None:
@@ -13,10 +14,6 @@ def freq_analysis(path_text: str, path_freq_index: str) -> None:
         Returns:
             None
         """
-    if not os.path.exists(path_text):
-        print(f"Error: File '{path_text}' not found.")
-        return
-
     text = read_text(path_text)
     char_frequency = {}
     total_chars = len(text)

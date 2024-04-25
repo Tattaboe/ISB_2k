@@ -1,4 +1,3 @@
-
 from work_file import read_json, write_text, read_columns_order_from_json, read_text
 
 
@@ -39,9 +38,6 @@ def vertical_rearrangement(path_key: str, text_to_encrypt: str) -> str:
 
 def main() -> None:
     paths = read_json("paths.json")
-    if not paths:
-        return
-
     path_t = paths.get("path_text_1")
     path_k = paths.get("path_key_1")
     path_e = paths.get("path_encryption_1")
