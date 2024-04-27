@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 
-std::string generateRandomBits() {
+std::string generate_random_shuffle() {
     std::random_device rd;
     std::shuffle_order_engine<std::mt19937, 2> gen(rd());
 
@@ -14,7 +14,7 @@ std::string generateRandomBits() {
 }
 
 int main() {
-    std::string randomBits = generateRandomBits();
+    std::string randomBits = generate_random_shuffle();
     std::cout << randomBits << std::endl;
 
     return 0;
