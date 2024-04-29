@@ -1,4 +1,10 @@
 {
- "cpp": 0.8596837951986662,
- "java": 0.21592493894014037
+ "cpp": {
+  "frequency_bit_test": 0.8596837951986662,
+  "identical_bit_test": 0.8618206240105855
+ },
+ "java": {
+  "frequency_bit_test": 0.21592493894014037,
+  "identical_bit_test": 0.6893275441398365
+ }
 }

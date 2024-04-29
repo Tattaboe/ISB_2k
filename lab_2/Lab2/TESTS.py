@@ -15,14 +15,23 @@ def frequency_bit_test(path: str, key_f: str) -> float:
     except Exception as e:
         print(f"Error frequency_bit_test: {e}")
 
-def identical_bit_test(path:str, key_i: str) -> float:
+
+def identical_bit_test(path: str, key_i: str) -> float:
     sub = read_json(path)
     try:
         sequence = sub.get(key_i)
         n = len(sequence)
         numbers_units = sequence.count("1")
         share_units = numbers_units / n
-        return share_units
+        if abs(share_units - 0.5) > 2 / math.sqrt(n):
+            return 0
+
+        v_n = sum(1 for bit in range(n - 1) if sequence[bit] != sequence[bit + 1])
+
+        num = abs(v_n - 2 * n * share_units * (1 - share_units))
+        denom = 2 * math.sqrt(2 * n) * share_units * (1 - share_units)
+        p_v = math.erfc(num / denom)
+        return p_v
     except Exception as e:
         print(f"Error identical_bit_test: {e}")
 
@@ -36,11 +45,12 @@ if __name__ == "__main__":
     keys = ["cpp", "java"]
 
     for key in keys:
-        result = frequency_bit_test(path_s, key)
-        if result is not None:
-            results[key] = result
+        result_freq = frequency_bit_test(path_s, key)
+        result_identical = identical_bit_test(path_s, key)
+
+        if result_freq is not None:
+            results[key] = {"frequency_bit_test": result_freq, "identical_bit_test": result_identical}
 
     write_json(results, path_r)
 
-    f = identical_bit_test(path_s,"cpp")
-    print (f)
+
