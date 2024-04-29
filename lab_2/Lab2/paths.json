@@ -1,3 +1,4 @@
 {
-  "sequences": "Task_1/sequences.json"
+  "sequences": "Task_1/sequences.json",
+  "result": "test_results.json"
 }
