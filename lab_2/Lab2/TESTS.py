@@ -1,4 +1,3 @@
-import os
 import math
 import mpmath
 
@@ -8,6 +7,16 @@ PI = {0: 0.2148, 1: 0.3672, 2: 0.2305, 3: 0.1875}
 
 
 def frequency_bit_test(path: str, key_f: str) -> float:
+    """
+    Perform a frequency bit test on a sequence.
+
+    Parameters:
+    - path (str): The path to the JSON file containing the sequence.
+    - key_f (str): The key to access the specific sequence in the JSON file.
+
+    Returns:
+    - float: The result of the frequency bit test.
+    """
     sub = read_json(path)
     try:
         x_i = [-1 if bit == "0" else 1 for bit in sub.get(key_f)]
@@ -20,6 +29,16 @@ def frequency_bit_test(path: str, key_f: str) -> float:
 
 
 def identical_bit_test(path: str, key_i: str) -> float:
+    """
+      Perform an identical bit test on a sequence.
+
+      Parameters:
+      - path (str): The path to the JSON file containing the sequence.
+      - key_i (str): The key to access the specific sequence in the JSON file.
+
+      Returns:
+      - float: The result of the identical bit test.
+      """
     sub = read_json(path)
     try:
         sequence = sub.get(key_i)
@@ -34,8 +53,8 @@ def identical_bit_test(path: str, key_i: str) -> float:
         v_n = sum(1 for bit in range(n - 1) if sequence[bit] != sequence[bit + 1])
 
         num = abs(v_n - 2 * n * share_units * (1 - share_units))
-        denom = 2 * math.sqrt(2 * n) * share_units * (1 - share_units)
-        p_v = math.erfc(num / denom)
+        denominator = 2 * math.sqrt(2 * n) * share_units * (1 - share_units)
+        p_v = math.erfc(num / denominator)
         return p_v
 
     except Exception as e:
@@ -43,6 +62,16 @@ def identical_bit_test(path: str, key_i: str) -> float:
 
 
 def long_sequence_ones_test(path: str, key_l: str) -> float:
+    """
+     Perform a long sequence of ones test on a sequence.
+
+     Parameters:
+     - path (str): The path to the JSON file containing the sequence.
+     - key_l (str): The key to access the specific sequence in the JSON file.
+
+     Returns:
+     - float: The result of the long sequence of ones test.
+     """
     sub = read_json(path)
     try:
         sequence = sub.get(key_l)
@@ -95,5 +124,3 @@ if __name__ == "__main__":
             }
 
     write_json(results, path_r)
-
-
