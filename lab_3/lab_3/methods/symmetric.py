@@ -2,7 +2,7 @@ import os
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
-from work_file import read_bytes, write_bytes_text, write_file
+from methods.work_file import read_bytes, write_bytes_text, write_file
 
 
 class Symmetric:
@@ -12,7 +12,7 @@ class Symmetric:
     def generate_key(self) -> bytes:
         return os.urandom(self.key_len // 8)
 
-    def encrypt_text(self, path_text: str, encrypted_path: str) -> bytes:
+    def encrypt_text_1(self,  path_text: str, encrypted_path: str) -> bytes:
 
         text = read_bytes(path_text)
         try:
@@ -27,7 +27,7 @@ class Symmetric:
         except Exception as e:
             print(f"Error in encryption - {e}")
 
-    def decrypt_text(self, encrypted_path: str, decrypted_path: str) -> str:
+    def decrypt_text_1(self, encrypted_path: str, decrypted_path: str) -> str:
 
         encrypted_text = read_bytes(encrypted_path)
         try:
