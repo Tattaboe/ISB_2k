@@ -9,11 +9,11 @@ class Asymmetric:
         self.private_key = None
         self.public_key = None
 
-    def generate_keys(self) -> None:
-
+    def generate_keys(self) -> tuple:
         keys = rsa.generate_private_key(public_exponent=65537, key_size=2048)
         self.private_key = keys
         self.public_key = keys.public_key()
+        return self.public_key, self.private_key
 
     def encrypt_text_2(self, sym_key: bytes) -> bytes:
 

@@ -2,16 +2,16 @@ import argparse
 
 from methods.asymmetric import Asymmetric
 from methods.symmetric import Symmetric
-from methods.seri_deseri import (ser_sym_key, deser_sym_key, ser_public_key,
-                                 ser_private_key, deser_public_key, deser_private_key)
-from methods.work_file import (read_json, read_bytes, write_bytes_text, write_file)
+from methods.seri_deseri import *
+from work_file import read_json
 
 
 def main():
+
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
-        "-gen_s", "--generation_symmetric", help="symmetric key generation"
+        "-gen", "--generation_symmetric", help="symmetric key generation"
     )
     group.add_argument(
         "-gen_a", "--generation_asymmetric", help="asymmetric key generation"
@@ -25,13 +25,13 @@ def main():
         "-dec_sym", "--decryption_symmetric_key", help="decryption symmetric key"
     )
     parser.add_argument(
-        "paths", type=str, help="Path to the json file with the settings"
+        "setting", type=str, help="Path to the json file with the settings"
     )
 
     args = parser.parse_args()
-    symmetric = Symmetric()
+    symmetric = Symmetric(128)
     asymmetric = Asymmetric()
-    paths = read_json(args.paths)
+    paths = read_json(args.setting)
 
     match args:
 
@@ -56,7 +56,7 @@ def main():
                 paths["encrypted_file"],
                 paths["decrypted_file"]
             )
-            print(f"Расшифрованный текст: {decrypted_text}")
+            print(f"Decrypted text: {decrypted_text}")
 
         case args if args.ecryption_symmetric_key:
             asymmetric.encrypt_text_2(
