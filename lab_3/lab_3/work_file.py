@@ -55,7 +55,7 @@ def write_file(path: str, data: str) -> None:
     except FileNotFoundError:
         print("File not found")
     except Exception as e:
-        print(f"Error reading file {str(e)}")
+        print(f"Error writing file {str(e)}")
 
 
 def write_bytes_text(file_path: str, bytes_text: bytes) -> None:
@@ -73,4 +73,4 @@ def write_bytes_text(file_path: str, bytes_text: bytes) -> None:
     except FileNotFoundError:
         print("File not found")
     except Exception as e:
-        print(f"Error reading file {str(e)}")
+        print(f"Error writing file {str(e)}")
