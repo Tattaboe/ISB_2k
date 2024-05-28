@@ -1,7 +1,11 @@
 import os
+import logging
+
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
+from cryptography.utils import CryptographyDeprecationWarning
+
 from work_file import read_bytes, write_bytes_text, write_file
 
 
@@ -44,6 +48,10 @@ class Symmetric:
             decrypted_text = unpadded_dc_text.decode('UTF-8')
             write_file(decrypted_path, decrypted_text)
             return decrypted_text
+
+        except CryptographyDeprecationWarning:
+            logging.warning("In this version Blowfish marked as old type")
+
         except Exception as e:
             print(f"Error in decryption - {e}")
 
