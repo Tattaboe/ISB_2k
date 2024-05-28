@@ -49,7 +49,7 @@ class Symmetric:
             write_file(decrypted_path, decrypted_text)
             return decrypted_text
 
-        except CryptographyDeprecationWarning:
+        except CryptographyDeprecationWarning as e:
             logging.warning("In this version Blowfish marked as old type")
 
         except Exception as e:

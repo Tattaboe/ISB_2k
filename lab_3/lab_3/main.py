@@ -45,6 +45,7 @@ def main():
             ser_private_key(paths["asym_private_key"], private_key)
 
         case args if args.encryption_text:
+            deser_sym_key(paths["sym_key"])
             encrypted_text = symmetric.encrypt_text_1(
                 paths["original_file"],
                 paths["encrypted_file"]
@@ -52,6 +53,7 @@ def main():
             print(f"Encrypted text: {encrypted_text}")
 
         case args if args.decryption_text:
+            deser_sym_key(paths["sym_key"])
             decrypted_text = symmetric.decrypt_text_1(
                 paths["encrypted_file"],
                 paths["decrypted_file"]
@@ -59,13 +61,17 @@ def main():
             print(f"Decrypted text: {decrypted_text}")
 
         case args if args.encryption_symmetric_key:
-            sym_key = symmetric.generate_key()
-            encrypted_symmetric_key = asymmetric.encrypt_text_2(sym_key)
-            write_bytes_text(paths["encrypted_sym_key"], encrypted_symmetric_key)
+            asymmetric.encrypt_2(
+                paths["asym_public_key"],
+                paths["sym_key"],
+                paths["encrypted_sym_key"],
+            )
 
         case args if args.decryption_symmetric_key:
-            asymmetric.decrypt_text_2(
-                paths["decrypted_sym_key"]
+            asymmetric.decrypt_2(
+                paths["encrypted_sym_key"],
+                paths["asym_private_key"],
+                paths["decrypted_sym_key"],
             )
 
 
