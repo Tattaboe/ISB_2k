@@ -4,6 +4,17 @@ from cryptography.hazmat.primitives.serialization import load_pem_public_key, lo
 
 
 def ser_sym_key(name: str, key_len: bytes) -> None:
+    """
+     Serialize a symmetric key to a file.
+
+     Args:
+         name (str): The file name to write the key to.
+         key_len (bytes): The symmetric key to write.
+
+     Raises:
+         FileNotFoundError: If the file is not found.
+         Exception: If an error occurs while writing the file.
+     """
 
     try:
         with open(name, 'wb') as key_file:
@@ -16,6 +27,19 @@ def ser_sym_key(name: str, key_len: bytes) -> None:
 
 
 def deser_sym_key(name: str) -> bytes:
+    """
+    Deserialize a symmetric key from a file.
+
+    Args:
+        name (str): The file name to read the key from.
+
+    Returns:
+        bytes: The deserialized symmetric key.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        Exception: If an error occurs while reading the file.
+    """
 
     try:
         with open(name, "rb") as file:
@@ -28,6 +52,17 @@ def deser_sym_key(name: str) -> bytes:
 
 
 def ser_public_key(public_pem: str, public_key: rsa.RSAPublicKey) -> None:
+    """
+    Serialize a public key to a file.
+
+    Args:
+        public_pem (str): The file name to write the public key to.
+        public_key (rsa.RSAPublicKey): The public key to write.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        Exception: If an error occurs while writing the file.
+    """
 
     try:
         with open(public_pem, "wb") as public_out:
@@ -45,6 +80,17 @@ def ser_public_key(public_pem: str, public_key: rsa.RSAPublicKey) -> None:
 
 
 def ser_private_key(private_pem: str, private_key: rsa.RSAPrivateKey) -> None:
+    """
+    Serialize a private key to a file.
+
+    Args:
+        private_pem (str): The file name to write the private key to.
+        private_key (rsa.RSAPrivateKey): The private key to write.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        Exception: If an error occurs while writing the file.
+    """
 
     try:
         with open(private_pem, "wb") as private_out:
@@ -63,6 +109,19 @@ def ser_private_key(private_pem: str, private_key: rsa.RSAPrivateKey) -> None:
 
 
 def deser_public_key(public_pem: str) -> rsa.RSAPublicKey:
+    """
+    Deserialize a public key from a file.
+
+    Args:
+        public_pem (str): The file name to read the public key from.
+
+    Returns:
+        rsa.RSAPublicKey: The deserialized public key.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        Exception: If an error occurs while reading the file.
+    """
 
     try:
         with open(public_pem, "rb") as pem_in:
@@ -76,6 +135,19 @@ def deser_public_key(public_pem: str) -> rsa.RSAPublicKey:
 
 
 def deser_private_key(private_pem: str) -> rsa.RSAPrivateKey:
+    """
+    Deserialize a private key from a file.
+
+    Args:
+        private_pem (str): The file name to read the private key from.
+
+    Returns:
+        rsa.RSAPrivateKey: The deserialized private key.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        Exception: If an error occurs while reading the file.
+    """
 
     try:
         with open(private_pem, "rb") as pem_in:
