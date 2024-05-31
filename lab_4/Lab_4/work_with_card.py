@@ -9,6 +9,17 @@ from work_with_file import *
 
 
 def get_card_num(hash_str: str, last_nums: str, bin_str: str) -> List[str]:
+    """
+        Generate valid card numbers based on the given hash, last 4 numbers, and BIN.
+
+        Args:
+            hash_str (str): The hash to match.
+            last_nums (str): The last 4 numbers of the card.
+            bin_str (str): The BIN (Bank Identification Number) of the card.
+
+        Returns:
+            List[str]: List of valid card numbers.
+    """
 
     valid_card_numbers = []
     for middle_num in range(0, 999999 + 1):
@@ -19,6 +30,19 @@ def get_card_num(hash_str: str, last_nums: str, bin_str: str) -> List[str]:
 
 
 def find_num(hash_str: str, last_nums: str, bins: List[int], path_to: str) -> List[str]:
+    """
+    Find and save valid card numbers based on the given parameters.
+
+    Args:
+        hash_str (str): The hash to match.
+        last_nums (str): The last 4 numbers of the card.
+        bins (List[int]): List of BINs to search for valid card numbers.
+        path_to (str): The path to save the results.
+
+    Returns:
+        List[str]: List of valid card numbers found.
+    """
+
     ans = []
     args = [(hash_str, last_nums, str(bin_num)) for bin_num in bins]
 
@@ -32,6 +56,15 @@ def find_num(hash_str: str, last_nums: str, bins: List[int], path_to: str) -> Li
 
 
 def algorithm_luhn(card_num: str) -> bool:
+    """
+    Validate a credit card number using the Luhn algorithm.
+
+    Args:
+        card_num (str): The credit card number to validate.
+
+    Returns:
+        bool: True if the credit card number is valid, False otherwise.
+    """
     total_sum = 0
     second_elem = False
 
@@ -50,6 +83,18 @@ def algorithm_luhn(card_num: str) -> bool:
 
 
 def execute_processes(args, num_processes, start):
+    """
+    Execute multiple processes in parallel and calculate the time taken by each process.
+
+    Args:
+        args: Arguments to be passed to the processes.
+        num_processes (int): Number of processes to execute.
+        start: Start time of the processes.
+
+    Returns:
+        List[float]: List of times taken by each process.
+    """
+
     process_times = []
     with multiprocessing.Pool(num_processes) as pool:
         results = pool.starmap(get_card_num, args)
@@ -60,6 +105,19 @@ def execute_processes(args, num_processes, start):
 
 
 def get_stats(hash: str, last_nums: str, bins: List[int], path_to: str) -> List[float]:
+    """
+    Get statistics on the collision search time for different processes.
+
+    Args:
+        hash (str): The hash value.
+        last_nums (str): The last numbers.
+        bins (List[int]): List of bins.
+        path_to (str): Path to save the statistics.
+
+    Returns:
+        List[float]: List of average times for each process.
+    """
+
     times = []
 
     for i in tqdm(range(1, int(1.5 * multiprocessing.cpu_count()) + 1), desc='State'):
@@ -75,6 +133,16 @@ def get_stats(hash: str, last_nums: str, bins: List[int], path_to: str) -> List[
 
 
 def graph(data: List[float], path_to_save: str):
+    """
+    Generate and save a graph based on the given data.
+
+    Args:
+        data (List[float]): List of data points.
+        path_to_save (str): Path to save the graph image.
+
+    Returns:
+        None
+    """
     plt.plot(range(1, len(data) + 1), data)
 
     m = min(data)
