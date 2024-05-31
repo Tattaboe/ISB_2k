@@ -1,8 +1,9 @@
 import multiprocessing
 import hashlib
 import time
-from tqdm import tqdm
+import matplotlib.pyplot as plt
 
+from tqdm import tqdm
 from typing import List
 from work_with_file import *
 
@@ -71,3 +72,19 @@ def get_stats(hash: str, last_nums: str, bins: List[int], path_to: str) -> List[
     write_file(path_to, "\n".join(map(str, times)))
 
     return times
+
+
+def graph(data: List[float], path_to_save: str):
+    plt.plot(range(1, len(data) + 1), data)
+
+    m = min(data)
+    m_idx = data.index(m)
+    plt.scatter([m_idx + 1], [m], color='red')
+    plt.annotate(f"Global minimum point ({m_idx + 1}, {round(m, 2)})", (m_idx + 1, m))
+
+    plt.xlabel('Num of processes')
+    plt.ylabel('Collision search time, s')
+    plt.title('Search Time vs. Num of Processes')
+
+    plt.savefig(path_to_save)
+    plt.show()

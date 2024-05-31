@@ -76,6 +76,7 @@ def read_file(name: str) -> str:
     Returns:
         str: The text data read from the file.
     """
+    data = ""
     try:
         with open(name, 'r', encoding='utf-8') as file:
             data = file.read()
