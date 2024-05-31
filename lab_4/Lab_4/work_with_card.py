@@ -26,3 +26,21 @@ def find_num(hash_str: str, last_nums: str, bins: List[int], path_to: str) -> Li
     write_file(path_to, "\n".join(ans))
 
     return ans
+
+
+def algorithm_luhn(card_num: str) -> bool:
+    total_sum = 0
+    second_elem = False
+
+    for elem in reversed(card_num):
+        elem = int(elem)
+
+        if second_elem:
+            elem *= 2
+            if elem > 9:
+                elem -= 9
+
+        total_sum += elem
+        second_elem = not second_elem
+
+    return total_sum % 10 == 0
