@@ -1,5 +1,7 @@
 import multiprocessing
 import hashlib
+import time
+from tqdm import tqdm
 
 from typing import List
 from work_with_file import *
@@ -44,3 +46,28 @@ def algorithm_luhn(card_num: str) -> bool:
         second_elem = not second_elem
 
     return total_sum % 10 == 0
+
+
+def execute_processes(args, num_processes, start):
+    process_times = []
+    with multiprocessing.Pool(num_processes) as pool:
+        results = pool.starmap(get_card_num, args)
+        for result in results:
+            process_times.append(time.time() - start)
+
+    return process_times
+
+
+def get_stats(hash: str, last_nums: str, bins: List[int], path_to: str) -> List[float]:
+    times = []
+
+    for i in tqdm(range(1, int(1.5 * multiprocessing.cpu_count()) + 1), desc='State'):
+        start = time.time()
+        args = [(hash, last_nums, str(bin)) for bin in bins]
+        process_times = execute_processes(args, i, start)
+        avg_time = sum(process_times) / len(process_times)
+        times.append(avg_time)
+
+    write_file(path_to, "\n".join(map(str, times)))
+
+    return times
